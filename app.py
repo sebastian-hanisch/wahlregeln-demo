@@ -167,7 +167,7 @@ st.markdown(
     """
 | Annahme | Was passiert, wenn sie verletzt ist | Wer setzt an |
 |---|---|---|
-| **Jeder Wähler gibt seine wahre Rangfolge an** | Wähler können taktisch lügen; keine der Regeln ist dagegen gefeit. | Manipulation (Stück 3 der Linie) |
+| **Jeder Wähler gibt seine wahre Rangfolge an** | Wähler können taktisch lügen; ab drei Kandidaten ist keine der Regeln dagegen gefeit. | Manipulation (Stück 3 der Linie) |
 | **Die Profile sind Modelle** | Die Anteile hängen vom Profilmodell ab: bei einspitzigen Profilen gibt es nie einen Zyklus, bei Zufallsprofilen oft. Echte Präferenzen liegen dazwischen. | diese Demo (drei Modelle) |
 | **Vollständige Rangfolgen ohne Gleichstände** | Echte Wähler lassen Plätze offen oder bewerten gleich; das ändert alle vier Regeln. | – |
 | **Ein Gleichstand wird per Los entschieden** | Bei kleinen Wählerzahlen entscheidet das Los öfter; das Ergebnis hängt dann am Zufalls-Seed. | – |

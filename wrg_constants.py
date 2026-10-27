@@ -36,8 +36,8 @@ PRESETS = {
 }
 PRESET_HELP = {
     "Zufall, drei Kandidaten": "Voreinstellung: 51 Wähler ordnen drei Kandidaten völlig zufällig. Der Zufalls-Seed ist ein Beispiel, bei dem die Regeln auseinandergehen: es gibt einen Condorcet-Sieger, aber nicht jede Regel wählt ihn.",
-    "Viele Kandidaten, viele Wähler": "5 Kandidaten, 201 Wähler, Zufallsprofil: je mehr Kandidaten, desto häufiger fehlt ein Condorcet-Sieger und desto öfter widersprechen sich die Regeln.",
+    "Viele Kandidaten, viele Wähler": "5 Kandidaten, 201 Wähler, Zufallsprofil: bei Zufallsprofilen fehlt mit mehr Kandidaten häufiger ein Condorcet-Sieger, und die Regeln widersprechen sich öfter.",
     "Einspitzig: ein mittlerer Sieger": "5 Kandidaten auf einer Achse, Wähler mit Idealpunkt. Es gibt immer einen Condorcet-Sieger (der Kandidat beim mittleren Wähler); die Mehrheitswahl verfehlt ihn trotzdem oft, weil sie nur die Erststimmen zählt.",
-    "Zwei Lager: der Kompromiss": "Zwei gegenläufige Lager (55 : 45) mit Streuung. In diesem Beispiel gewinnt der Kompromisskandidat bei Borda, Copeland und Sofortstichwahl, die Mehrheitswahl wählt den Kandidaten des größeren Lagers.",
+    "Zwei Lager: der Kompromiss": "Zwei gegenläufige Lager (55 : 45) mit Streuung. In diesem Beispiel gewinnt Kandidat B (Zweiter im größeren Lager, bester mittlerer Rang) bei Borda, Copeland und Sofortstichwahl, die Mehrheitswahl wählt den Kandidaten des größeren Lagers.",
     "Ein Zyklus bei wenigen Wählern": "7 Wähler, 3 Kandidaten, Zufalls-Seed so gewählt, dass die paarweisen Mehrheiten einen Zyklus bilden: kein Condorcet-Sieger. Ohne Auswahl des Seeds tritt das bei Zufallsprofilen mit drei Kandidaten in rund 8 % der Fälle auf.",
 }
