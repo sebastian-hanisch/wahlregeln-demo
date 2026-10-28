@@ -54,9 +54,22 @@ Die Demo wendet vier Regeln auf **dieselben Profile** an: **Mehrheitswahl** (nur
 Sie zeigt, **wie oft die Regeln einen verschiedenen Sieger küren**, wie oft es **gar keinen Kandidaten gibt, der alle anderen mit Mehrheit schlägt** (Condorcet-Paradoxon) und wie sehr das vom **Profilmodell** abhängt.
 Stück 1 der Linie „Abstimmen und Fair Teilen“; die Rangaggregation mit einer wahren Ordnung steht in `rangaggregation-demo`.
 
-Weiter unten: der Abschnitt **🔬 Messreihen**, **🚧 Wo die Annahmen enden** und der Expander **📐 Mathematische Formulierung**.
+Wer die Frage zuerst ohne Fachbegriffe verstehen will, öffnet „💬 In einfachen Worten“. Weiter unten: der Abschnitt **🔬 Messreihen**, **🚧 Wo die Annahmen enden** und der Expander **📐 Mathematische Formulierung**.
 """
 )
+
+# erklaerseite:einfach:start (erzeugt von tools/set_demo_explainer.py (Website-Repo) aus tools/content/explainers/wahlregeln-erklaert.json, nicht von Hand ändern)
+with st.expander("💬 In einfachen Worten"):
+    st.markdown(
+        """
+Ein Gremium soll **einen** Kandidaten oder Lieferanten wählen, und jedes Mitglied hat die Kandidaten in eine Rangfolge gebracht. Eine richtige Antwort gibt es nicht, nur eine **Regel**, die aus allen Rangfolgen einen Sieger macht. Die Demo wendet vier Regeln auf dieselben Rangfolgen an: Die Mehrheitswahl zählt nur die erste Wahl, Borda gibt Punkte für jeden Platz, Copeland zählt gewonnene Paarvergleiche, und bei der Sofortstichwahl scheidet der Letzte Runde für Runde aus.
+
+Dieselben Rangfolgen können so verschiedene Sieger ergeben. Manchmal schlägt auch kein Kandidat alle anderen mit Mehrheit, weil die Mehrheiten im Kreis laufen. Wie oft das vorkommt, hängt davon ab, wie die Rangfolgen entstehen. Die Demo erzeugt sie auf drei Arten und zeigt damit Modelle, keine echten Abstimmungen.
+
+[Ausführlich und verständlich erklärt, mit Fachteil](https://sebastianhanisch.net/wahlregeln-erklaert.html)
+        """
+    )
+# erklaerseite:einfach:end
 
 with st.expander("So zählen die vier Regeln", expanded=True):
     st.markdown(
@@ -167,8 +180,8 @@ st.markdown(
     """
 | Annahme | Was passiert, wenn sie verletzt ist | Wer setzt an |
 |---|---|---|
-| **Jeder Wähler gibt seine wahre Rangfolge an** | Wähler können taktisch lügen; ab drei Kandidaten ist keine der Regeln dagegen gefeit. | Manipulation (Stück 3 der Linie) |
-| **Die Profile sind Modelle** | Die Anteile hängen vom Profilmodell ab: bei einspitzigen Profilen gibt es nie einen Zyklus, bei Zufallsprofilen oft. Echte Präferenzen liegen dazwischen. | diese Demo (drei Modelle) |
+| **Jeder Wähler gibt seine wahre Rangfolge an** | Wähler können taktisch lügen; nach Gibbard und Satterthwaite (aus dem Gedächtnis, nicht im Original geprüft) lässt sich ab drei Kandidaten jede Regel ohne Diktator mit fester Gleichstandsregel so manipulieren. Wie oft das gelingt, zeigt die Demo „Taktisch wählen“. | taktisch-waehlen-demo |
+| **Die Profile sind Modelle** | Die Anteile hängen vom Profilmodell ab: bei einspitzigen Profilen gibt es nie einen Zyklus, bei Zufallsprofilen mit drei Kandidaten in 5,6 % (3 Wähler) bis 8,4 % (21 Wähler) der Profile. Echte Präferenzen liegen dazwischen. | diese Demo (drei Modelle) |
 | **Vollständige Rangfolgen ohne Gleichstände** | Echte Wähler lassen Plätze offen oder bewerten gleich; das ändert alle vier Regeln. | – |
 | **Ein Gleichstand wird per Los entschieden** | Bei kleinen Wählerzahlen entscheidet das Los öfter; das Ergebnis hängt dann am Zufalls-Seed. | – |
 | **Es gibt keine Wahrheit** | Wenn die Rangfolgen verrauschte Messungen einer wahren Ordnung wären, wäre das Ziel ein anderes (die Wahrheit treffen). | `rangaggregation-demo` |
@@ -179,6 +192,28 @@ st.markdown(
 st.markdown("---")
 
 with st.expander("📐 Mathematische Formulierung"):
+    # erklaerseite:lesehilfe:start (erzeugt von tools/set_demo_explainer.py (Website-Repo) aus tools/content/explainers/wahlregeln-erklaert.json, nicht von Hand ändern)
+    st.markdown(
+        r"""
+**Lesehilfe.** Gegeben sind $n$ Wähler, die $m$ Kandidaten je in eine strikte Rangfolge bringen (das Profil), und eine Zählregel. Gesucht ist, welchen Kandidaten jede Regel kürt, ob ein Condorcet-Sieger existiert und wie oft die Regeln verschiedene Sieger küren.
+
+| Symbol | Bedeutung |
+|---|---|
+| $n$, $m$ | Zahl der Wähler bzw. der Kandidaten |
+| $v$ | ein Wähler |
+| $a$, $b$, $c$ | Kandidaten |
+| $\mathrm{rk}_v(c)$ | Rangplatz von $c$ bei Wähler $v$, von $0$ (beste) bis $m-1$ |
+| $P(c)$ | Erststimmen von $c$ (Mehrheitswahl) |
+| $B(c)$ | Borda-Punktzahl von $c$: $m-1$ Punkte für den ersten, $0$ für den letzten Platz |
+| $W(a, b)$ | Zahl der Wähler, die $a$ vor $b$ reihen |
+| $\mathrm{Cop}(a)$ | Copeland-Punktzahl von $a$: ein Punkt je gewonnenem Paarvergleich, ein halber je Gleichstand |
+| $\pi$, $\sigma$ | eine gezogene Rangfolge bzw. die Grundrangfolge im Mallows-Modell |
+| $d$, $\varphi$ | Zahl der Fehlstände zwischen $\pi$ und $\sigma$ bzw. Streuparameter |
+
+[Schritt für Schritt erklärt, mit Herleitung und Literatur](https://sebastianhanisch.net/wahlregeln-erklaert.html#fachleute)
+        """
+    )
+    # erklaerseite:lesehilfe:end
     st.markdown(
         r"""
 **Profil.** $n$ Wähler, $m$ Kandidaten; jeder Wähler $v$ hat eine strikte Rangfolge, $\mathrm{rk}_v(c) \in \{0, \dots, m-1\}$ ist der Rangplatz von $c$ (0 = beste).
