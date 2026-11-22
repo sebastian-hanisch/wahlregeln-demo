@@ -133,7 +133,7 @@ def paradox_row(r: dict) -> dict:
 
 
 def verdict_paradox(rows: list[dict]) -> tuple[str, str]:
-    """Verdikt der Reihe 1: nennt für das Zufallsprofil den kleinsten und größten Anteil, für das einspitzige den größten."""
+    """Verdikt der Reihe 1: nennt für das Zufallsprofil den kleinsten und größten Anteil, für das eingipflige den größten."""
     rnd = [r for r in rows if r["model"] == "random"]
     single = [r for r in rows if r["model"] == "single"]
     lo, hi = min(rnd, key=lambda r: r["no_condorcet"]), max(rnd, key=lambda r: r["no_condorcet"])
@@ -141,7 +141,7 @@ def verdict_paradox(rows: list[dict]) -> tuple[str, str]:
     text = (f"Bei zufälligen Profilen fehlt der Condorcet-Sieger in {pct(lo['no_condorcet'], 1)} der Profile ({lo['m']} Kandidaten, {lo['n']} Wähler) "
             f"bis {pct(hi['no_condorcet'], 1)} ({hi['m']} Kandidaten, {hi['n']} Wähler).")
     if s_hi is not None:
-        text += f" Bei einspitzigen Profilen höchstens {pct(s_hi['no_condorcet'], 1)}."
+        text += f" Bei eingipfligen Profilen höchstens {pct(s_hi['no_condorcet'], 1)}."
     return "info", text
 
 

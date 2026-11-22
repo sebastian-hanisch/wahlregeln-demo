@@ -52,4 +52,4 @@ def test_disagree_figure_has_a_bar_per_rule():
     rows = [{"model": mo, "miss_condorcet": {k: 0.1 for k in A.RULE_NAMES}} for mo in C.MODELS]
     fig = V.build_disagree(rows)
     assert [t.name for t in fig.data] == list(A.RULE_NAMES.values()) and _locked(fig)
-    assert list(fig.data[0].x) == ["Zufall", "einspitzig", "zwei Lager"]
+    assert list(fig.data[0].x) == ["Zufall", "eingipflig", "zwei Lager"]

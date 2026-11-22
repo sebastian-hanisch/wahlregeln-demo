@@ -74,10 +74,10 @@ Dieselben Rangfolgen können so verschiedene Sieger ergeben. Manchmal schlägt a
 with st.expander("So zählen die vier Regeln", expanded=True):
     st.markdown(
         """
-1. **Mehrheitswahl:** jeder Wähler zählt nur seinen ersten Platz; wer die meisten Erststimmen hat, gewinnt (auch mit weniger als der Hälfte).
+1. **Mehrheitswahl (Plurality):** jeder Wähler zählt nur seinen ersten Platz; wer die meisten Erststimmen hat, gewinnt (auch mit weniger als der Hälfte).
 2. **Borda:** der erste Platz bringt m − 1 Punkte, der letzte 0; wer die meisten Punkte über alle Wähler hat, gewinnt.
 3. **Copeland:** je Paar zählt die Mehrheit der Wähler; ein Sieg bringt 1 Punkt, ein Gleichstand 0,5; wer die meisten Punkte hat, gewinnt. Ein **Condorcet-Sieger** gewinnt jeden Paarvergleich.
-4. **Sofortstichwahl:** in jeder Runde zählen die Erststimmen unter den noch Lebenden, der Kandidat mit den wenigsten scheidet aus, seine Stimmen gehen an den nächsten Platz; es bleibt einer übrig.
+4. **Sofortstichwahl (Instant-Runoff Voting, IRV):** in jeder Runde zählen die Erststimmen unter den noch Lebenden, der Kandidat mit den wenigsten scheidet aus, seine Stimmen gehen an den nächsten Platz; es bleibt einer übrig.
 5. **Gleichstand:** ein festes Zufallslos (aus dem Zufalls-Seed) legt vorher eine Rangfolge der Kandidaten fest; bei der Sofortstichwahl scheidet unter mehreren Letzten der am wenigsten bevorzugte aus.
         """
     )
@@ -91,7 +91,7 @@ with st.sidebar:
     sidebar_presets()  # Schnellstart oben, das aktive Preset ist hervorgehoben
     st.header("⚙️ Einstellungen")
     model = st.selectbox("Profilmodell", list(C.MODELS), format_func=C.MODELS.get, key="model_select",
-                         help="Wie die Wähler ihre Rangfolgen bilden. Zufall: jede der m! Rangfolgen gleich wahrscheinlich. Einspitzig: die Kandidaten liegen auf einer Achse, jeder Wähler reiht nach Abstand zu seinem Idealpunkt. Zwei Lager: 55 % streuen um eine Rangfolge, 45 % um die umgekehrte.")
+                         help="Wie die Wähler ihre Rangfolgen bilden. Zufall: jede der m! Rangfolgen gleich wahrscheinlich (Impartial Culture). Eingipflig (Single-Peaked Preferences): die Kandidaten liegen auf einer Achse, jeder Wähler reiht nach Abstand zu seinem Idealpunkt. Zwei Lager: 55 % streuen um eine Rangfolge, 45 % um die umgekehrte.")
     m = st.slider("Kandidaten", *bounds("m_slider"), key="m_slider", help="Wie viele Kandidaten zur Wahl stehen.")
     n = st.slider("Wähler", *bounds("n_slider"), key="n_slider", step=2, help="Immer eine ungerade Zahl: zwischen zwei Kandidaten gibt es dann keinen Gleichstand.")
     seed = st.number_input("Zufalls-Seed", *bounds("seed_input"), key="seed_input", step=1)
@@ -155,7 +155,7 @@ with tab1:
         st.table([paradox_row(r) for r in rows if r["model"] == "random"])
         kind, text = verdict_paradox(rows)
         getattr(st, kind)(text)
-        st.caption(f"Die Tabelle zeigt das Zufallsprofil; Linien: durchgezogen Zufall, gepunktet einspitzig, gestrichelt zwei Lager. Rechenzeit dieser Sitzung: {num(st.session_state['paradox_done'], 1)} s (beim ersten Mal; danach liegt das Ergebnis im Zwischenspeicher).")
+        st.caption(f"Die Tabelle zeigt das Zufallsprofil; Linien: durchgezogen Zufall, gepunktet eingipflig, gestrichelt zwei Lager. Rechenzeit dieser Sitzung: {num(st.session_state['paradox_done'], 1)} s (beim ersten Mal; danach liegt das Ergebnis im Zwischenspeicher).")
 with tab2:
     st.markdown(f"**Wie oft verfehlt eine Regel den Condorcet-Sieger?** {C.SERIES_DISAGREE_M} Kandidaten, {C.SERIES_DISAGREE_N} Wähler; nur Profile, in denen es einen Condorcet-Sieger gibt.")
     if st.button("Reihe rechnen", key="disagree_button"):
@@ -181,7 +181,7 @@ st.markdown(
 | Annahme | Was passiert, wenn sie verletzt ist | Wer setzt an |
 |---|---|---|
 | **Jeder Wähler gibt seine wahre Rangfolge an** | Wähler können taktisch lügen; nach Gibbard und Satterthwaite (aus dem Gedächtnis, nicht im Original geprüft) lässt sich ab drei Kandidaten jede Regel ohne Diktator mit fester Gleichstandsregel so manipulieren. Wie oft das gelingt, zeigt die Demo „Taktisch wählen“. | taktisch-waehlen-demo |
-| **Die Profile sind Modelle** | Die Anteile hängen vom Profilmodell ab: bei einspitzigen Profilen gibt es nie einen Zyklus, bei Zufallsprofilen mit drei Kandidaten in 5,6 % (3 Wähler) bis 8,4 % (21 Wähler) der Profile. Echte Präferenzen liegen dazwischen. | diese Demo (drei Modelle) |
+| **Die Profile sind Modelle** | Die Anteile hängen vom Profilmodell ab: bei eingipfligen Profilen gibt es nie einen Zyklus, bei Zufallsprofilen mit drei Kandidaten in 5,6 % (3 Wähler) bis 8,4 % (21 Wähler) der Profile. Echte Präferenzen liegen dazwischen. | diese Demo (drei Modelle) |
 | **Vollständige Rangfolgen ohne Gleichstände** | Echte Wähler lassen Plätze offen oder bewerten gleich; das ändert alle vier Regeln. | – |
 | **Ein Gleichstand wird per Los entschieden** | Bei kleinen Wählerzahlen entscheidet das Los öfter; das Ergebnis hängt dann am Zufalls-Seed. | – |
 | **Es gibt keine Wahrheit** | Wenn die Rangfolgen verrauschte Messungen einer wahren Ordnung wären, wäre das Ziel ein anderes (die Wahrheit treffen). | `rangaggregation-demo` |
@@ -229,7 +229,7 @@ Ein **Condorcet-Sieger** ist ein $a$ mit $W(a, b) > W(b, a)$ für alle $b \ne a$
 
 **Mallows-Modell (zwei Lager).** Die Wahrscheinlichkeit einer Rangfolge $\pi$ um die Grundrangfolge $\sigma$ ist $\propto \varphi^{d(\pi, \sigma)}$ mit der Zahl $d$ der Fehlstände (hier $\varphi = 0{,}7$).
 
-**Literatur** (aus dem Gedächtnis, nicht im Original geprüft): Condorcet (1785), Borda (1781), Copeland (1951), Black (1948, einspitzige Präferenzen), Arrow (1951); Überblick: Brandt, Conitzer, Endriss, Lang, Procaccia (Hrsg.), *Handbook of Computational Social Choice*, Cambridge University Press 2016.
+**Literatur** (aus dem Gedächtnis, nicht im Original geprüft): Condorcet (1785), Borda (1781), Copeland (1951), Black (1948, eingipflige Präferenzen), Arrow (1951); Überblick: Brandt, Conitzer, Endriss, Lang, Procaccia (Hrsg.), *Handbook of Computational Social Choice*, Cambridge University Press 2016.
         """
     )
 

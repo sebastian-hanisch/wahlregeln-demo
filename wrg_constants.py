@@ -2,7 +2,7 @@
 
 MODELS = {
     "random": "Zufall (jeder Wähler ordnet beliebig)",
-    "single": "einspitzig (Kandidaten auf einer Achse)",
+    "single": "eingipflig (Kandidaten auf einer Achse)",
     "camps": "zwei Lager (55 : 45, gegenläufig, mit Streuung)",
 }
 DEFAULT_MODEL = "random"

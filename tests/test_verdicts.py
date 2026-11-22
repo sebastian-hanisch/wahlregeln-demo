@@ -83,12 +83,12 @@ def test_paradox_row_and_verdict():
     kind, text = ev.verdict_paradox(rows_paradox())
     assert kind == "info"
     assert text == ("Bei zufälligen Profilen fehlt der Condorcet-Sieger in 5,0 % der Profile (3 Kandidaten, 11 Wähler) bis 25,0 % (5 Kandidaten, 201 Wähler). "
-                    "Bei einspitzigen Profilen höchstens 0,0 %.")
+                    "Bei eingipfligen Profilen höchstens 0,0 %.")
 
 
 def test_paradox_verdict_without_single_peaked_rows():
     kind, text = ev.verdict_paradox([r for r in rows_paradox() if r["model"] == "random"])
-    assert "einspitzig" not in text
+    assert "eingipflig" not in text
 
 
 def test_disagree_verdict_by_hand():
@@ -98,4 +98,4 @@ def test_disagree_verdict_by_hand():
     kind, text = ev.verdict_disagree([row("random", 0.468), row("single", 0.61), row("camps", 0.412)])
     assert kind == "info"
     assert text == ("Anteil der Profile, in denen mindestens zwei der vier Regeln verschiedene Sieger küren (4 Kandidaten, 51 Wähler): "
-                    "Zufall: 47 %; einspitzig: 61 %; zwei Lager: 41 %.")
+                    "Zufall: 47 %; eingipflig: 61 %; zwei Lager: 41 %.")
